@@ -1,78 +1,93 @@
-import matplotlib.pyplot as plt
 from pycalphad import Database, equilibrium, variables as v
+import matplotlib.pyplot as plt
 import numpy as np
 
-# --- CONFIGURATION ---
-DB_FILE = 'database.tdb'
-# REMOVED 'CU' to test the stable Al-Zn-Mg ternary core
-COMPONENTS = ['AL', 'ZN', 'MG', 'VA']
+# --- 1. CONFIGURATION ---
+db_file = 'COST507.tdb'
+input_comps = ['AL', 'ZN', 'MG', 'CU', 'VA'] 
 
-# --- SIMPLIFIED PHASES ---
-# We focus on the Al-Zn-Mg basics.
-# LAVES_C14 is the Eta Phase (MgZn2) -> The most important one for 7075
-PHASES = ['LIQUID', 'FCC_A1', 'LAVES_C14', 'ALMG_BETA', 'T_PHASE', 'HCP_A3']
-
-# --- ALLOY COMPOSITION (Al-7075 without Copper) ---
-# We keep Zn and Mg ratios the same.
+# Composition (Approx AA7075)
 composition = {
     v.W('ZN'): 0.056, 
-    v.W('MG'): 0.025,
+    v.W('MG'): 0.025, 
+    v.W('CU'): 0.016,
+    v.W('AL'): 0.903
 }
 
-def run_simulation():
-    print(f"Loading database: {DB_FILE}...")
-    try:
-        db = Database(DB_FILE)
-    except Exception as e:
-        print(f"Error: {e}")
-        return
+# --- 2. INTELLIGENT PHASE FILTERING ---
+print("⚙️  Loading database...")
+db = Database(db_file)
+all_phases = list(db.phases.keys())
 
-    print("Simulating Al-Zn-Mg Ternary System (No Copper)...")
+# A. Strict Filter for Intermetallics
+active_phases = []
+possible_elements = set(input_comps)
+
+for phase_name in all_phases:
+    phase_obj = db.phases[phase_name]
+    valid_phase = True
+    # Check if phase contains only our allowed elements
+    for sublattice in phase_obj.constituents:
+        for species in sublattice:
+            for el in species.constituents.keys():
+                if el not in possible_elements:
+                    valid_phase = False
+                    break
+            if not valid_phase: break
+        if not valid_phase: break
     
-    # Check which phases from our list actually exist in the DB
-    db_phases = list(db.phases.keys())
-    active_phases = [p for p in PHASES if p in db_phases]
-    print(f"Active Phases: {active_phases}")
+    if valid_phase:
+        active_phases.append(phase_name)
 
-    # Run Equilibrium
-    eq_result = equilibrium(
-        db, COMPONENTS, active_phases,
-        {v.P: 101325, v.T: (400, 1000, 5), v.N: 1, **composition}
-    )
+# B. FORCE-ADD ESSENTIAL PHASES (The Fix)
+# Even if they contain other elements in their definition, pycalphad handles them 
+# as long as we don't set compositions for those missing elements.
+essential_phases = ['LIQUID', 'FCC_A1'] 
 
-    print("Plotting...")
-    fig = plt.figure(figsize=(10, 7))
-    ax = fig.gca()
-    
-    phases_plotted = []
-    
-    for phase_name in active_phases:
-        if phase_name not in eq_result.Phase.values:
-            continue
-            
-        # Logic to extract data
-        phase_indices = eq_result.Phase.values == phase_name
-        if np.any(phase_indices):
-            phase_amount = np.nansum(
-                np.where(eq_result.Phase.values == phase_name, eq_result.NP.values, 0),
-                axis=-1
-            ).flatten()
-            
-            # Plot only significant phases
-            if np.max(phase_amount) > 0.001:
-                ax.plot(eq_result.T.values, phase_amount, label=phase_name, linewidth=2)
-                phases_plotted.append(phase_name)
+for phase in essential_phases:
+    if phase in all_phases and phase not in active_phases:
+        active_phases.append(phase)
+        print(f"🔹 Manually restored essential phase: {phase}")
 
-    ax.set_title('Al-Zn-Mg Phase Stability (Simplified Core)', fontsize=14)
-    ax.set_xlabel('Temperature (K)', fontsize=12)
-    ax.set_ylabel('Mole Fraction', fontsize=12)
-    ax.set_xlim(400, 1000)
-    ax.set_ylim(0, 1.05)
-    ax.legend(loc='center right')
-    ax.grid(True, linestyle='--', alpha=0.5)
-    
-    print(f"Plot generated for: {phases_plotted}")
-    plt.show()
+print(f"✅ Filter complete. Using {len(active_phases)} phases.")
+print(f"ℹ️  Active phases: {active_phases}")
 
-if __name__ == "__main__":
-    run_simulation()
+# --- 3. CALCULATE EQUILIBRIUM ---
+print("⏳ Calculating equilibrium...")
+try:
+    eq_result = equilibrium(db, input_comps, active_phases, composition, 
+                            {v.P: 101325, v.T: (300, 1000, 10), v.N: 1}) 
+    print("✅ Calculation complete!")
+except Exception as e:
+    print(f"❌ Calculation failed: {e}")
+    exit()
+
+# --- 4. PLOTTING ---
+print("🖼️  Generating plot...")
+plt.figure(figsize=(10, 6))
+
+# Plot Liquid
+if 'LIQUID' in active_phases:
+    liq_frac = eq_result.NP.where(eq_result.Phase == 'LIQUID').sum(dim='vertex').mean(dim='component')
+    plt.plot(eq_result.get_values(v.T), liq_frac, label='Liquid', color='red', linewidth=2)
+
+# Plot FCC_A1 (Matrix)
+if 'FCC_A1' in active_phases:
+    fcc_frac = eq_result.NP.where(eq_result.Phase == 'FCC_A1').sum(dim='vertex').mean(dim='component')
+    plt.plot(eq_result.get_values(v.T), fcc_frac, label='FCC_A1 (Matrix)', color='blue')
+
+# Plot Precipitates (only those that actually form)
+for phase in active_phases:
+    if phase not in ['LIQUID', 'FCC_A1', 'GAS_IDEAL', 'VACUUM']:
+        p_frac = eq_result.NP.where(eq_result.Phase == phase).sum(dim='vertex').mean(dim='component')
+        if p_frac.max() > 0.001: # Threshold: 0.1% volume
+            plt.plot(eq_result.get_values(v.T), p_frac, label=phase, linestyle='--')
+
+plt.title('Al-7xxx Equilibrium Phase Fractions')
+plt.xlabel('Temperature (K)')
+plt.ylabel('Phase Fraction (Mole)')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("safe_phase_diagram.png", dpi=300)
+print("💾 Plot saved as 'safe_phase_diagram.png'")
