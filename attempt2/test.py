@@ -20,7 +20,7 @@ db = Database(db_file)
 # INSTEAD OF "all_phases", use this specific list for 7xxx alloys
 # These are the standard names in COST507 for this system
 target_phases = [
-    'LIQUID', 
+    'LIQUID:L', 
     'FCC_A1',       # The Aluminum Matrix
     'MGZN2',        # Eta (η) phase - The main strengthener
     'SPHASE',       # S phase (Al2CuMg)
@@ -57,8 +57,9 @@ plt.figure(figsize=(10, 7))
 temps = eq_result.T.values
 
 # Plot Liquid
-if 'LIQUID' in eq_result.Phase:
-    liq_frac = eq_result.NP.where(eq_result.Phase == 'LIQUID').sum(dim='vertex').squeeze()
+if 'LIQUID:L' in eq_result.Phase:
+    # Use 'LIQUID:L' here too
+    liq_frac = eq_result.NP.where(eq_result.Phase == 'LIQUID:L').sum(dim='vertex').squeeze()
     if np.nanmax(liq_frac) > 0.001:
         plt.plot(temps, liq_frac, label='Liquid', color='red', linewidth=2)
 
