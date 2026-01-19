@@ -1,0 +1,7 @@
+# Dependencies for Al-7xxx CALPHAD Simulations
+# Install with: pip install -r requirements.txt
+
+pycalphad>=0.10.0
+numpy>=1.20.0
+matplotlib>=3.5.0
+scipy>=1.7.0
