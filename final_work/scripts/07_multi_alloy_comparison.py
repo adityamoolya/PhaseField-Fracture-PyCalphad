@@ -2,7 +2,7 @@
 05_multi_alloy_comparison.py
 Comparative Analysis of Aerospace-Grade Al-7xxx Alloys
 Compares Al-7050, Al-7075, and Al-7085 for phase stability and processing windows
-ALL VALUES FROM REAL THERMODYNAMIC SIMULATIONS - NO FAKE DATA
+ALL VALUES FROM REAL THERMODYNAMIC SIMULATIONS
 """
 
 import matplotlib.pyplot as plt
