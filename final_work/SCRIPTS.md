@@ -1,6 +1,6 @@
 # 🔬 Project Journey: Step-by-Step Script Walkthrough
 
-## How We Did This Project — A Complete Narrative for Judges
+## How We Did This Project 
 
 ---
 
@@ -325,7 +325,7 @@ for prop in ['solidus', 'liquidus', 'eta_120C', 'peak_hardness']:
 
 ---
 
-## Key Takeaways for Judges
+## Key Takeaways 
 
 1. **We followed a logical progression** — each script's conclusion led to the next question
 2. **All data is computed** — no fake experimental values, only CALPHAD calculations

@@ -2,7 +2,7 @@
 06_microalloying_effects.py
 Analysis of Cr and Zr micro-alloying effects on Al-7xxx alloys
 Studies dispersoid formation and grain refinement potential
-ALL VALUES FROM REAL THERMODYNAMIC SIMULATIONS - NO FAKE DATA
+ALL VALUES FROM REAL THERMODYNAMIC SIMULATIONS 
 """
 
 import matplotlib.pyplot as plt
@@ -384,5 +384,5 @@ print("\n" + "=" * 70)
 print("NOTE: If Cr/Zr elements are in database, results are from CALPHAD")
 print("      Otherwise, theoretical dispersoid effects shown from literature")
 print("=" * 70)
-
+# plt.savefig("06.png")
 plt.show()

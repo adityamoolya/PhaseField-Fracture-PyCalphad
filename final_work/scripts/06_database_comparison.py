@@ -1,7 +1,7 @@
 """
 04_database_comparison.py
 Compare simulation results from MULTIPLE thermodynamic databases
-ALL VALUES FROM REAL THERMODYNAMIC SIMULATIONS - NO FAKE DATA
+ALL VALUES FROM REAL THERMODYNAMIC SIMULATIONS 
 Compares COST507-modified.tdb vs mc_al_v2037.tdb (MatCalc database)
 """
 
@@ -13,7 +13,7 @@ warnings.filterwarnings('ignore')
 
 print("=" * 70)
 print("DATABASE COMPARISON: COST507 vs MatCalc (mc_al_v2037)")
-print("ALL DATA FROM REAL THERMODYNAMIC CALCULATIONS")
+# print("ALL DATA FROM REAL THERMODYNAMIC CALCULATIONS")
 print("=" * 70)
 
 # Load both databases
@@ -38,7 +38,7 @@ comps = ['AL', 'ZN', 'MG', 'VA']
 
 # =============================================================================
 # RUN SIMULATIONS WITH EACH DATABASE
-# =============================================================================
+# ===========================================================================----=-=-=
 
 results = {}
 
@@ -179,8 +179,8 @@ for db_name, data in results.items():
         summary_text += f"  FCC range: {min(valid_fcc):.4f} - {max(valid_fcc):.4f}\n\n"
 
 summary_text += "=" * 40 + "\n"
-summary_text += "All values from real CALPHAD calculations\n"
-summary_text += "No fake or placeholder data used"
+# summary_text += "All values from real CALPHAD calculations\n"
+# summary_text += "No fake or placeholder data used"
 
 ax4.text(0.1, 0.9, summary_text, transform=ax4.transAxes, fontsize=11,
          verticalalignment='top', fontfamily='monospace',
