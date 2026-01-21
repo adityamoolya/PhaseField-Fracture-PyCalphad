@@ -309,31 +309,31 @@ The simulation framework provides industrially-relevant predictions that can gui
 ## 11. Visuals
 
 ### Phase Stability Analysis
-![Multicomponent Contour Map](results/03_multicomponent_contour.png)
+![Multicomponent Contour Map](final_work/results/03_multicomponent_contour.png)
 *Contour map showing eta-phase fraction as a function of Zn and Mg content*
 
 ### Solidification Behavior
-![Scheil Solidification](results/04_scheil_solidification.png)
+![Scheil Solidification](final_work/results/04_scheil_solidification.png)
 *Scheil solidification curves showing solid fraction evolution during cooling*
 
 ### Heat Treatment Optimization
-![TTT Curves](results/05_ttt_curves.png)
+![TTT Curves](final_work/results/05_ttt_curves.png)
 *Time-Temperature-Transformation curves for precipitation kinetics*
 
 ### Database Validation
-![Database Comparison](results/06_database_comparison.png)
+![Database Comparison](final_work/results/06_database_comparison.png)
 *Comparison of COST507 and MatCalc database predictions*
 
 ### Multi-Alloy Comparison
-![Multi-Alloy Comparison](results/07_multi_alloy_comparison.png)
+![Multi-Alloy Comparison](final_work/results/07_multi_alloy_comparison.png)
 *Comprehensive comparison of Al-7050, Al-7075, and Al-7085 alloys*
 
 ### Microalloying Effects
-![Microalloying Effects](results/08_microalloying_effects.png)
+![Microalloying Effects](final_work/results/08_microalloying_effects.png)
 *Effect of Cr and Zr additions on dispersoid formation*
 
 ### Literature Validation
-![Literature Validation](results/09_literature_validation.png)
+![Literature Validation](final_work/results//09_literature_validation.png)
 *Validation of simulation predictions against published experimental data*
 
 ---
