@@ -4,7 +4,7 @@ from pycalphad import Database, binplot
 import pycalphad.variables as v
 
 # Load thermodynamic database
-db_alli = Database("COST507-modified.tdb")
+db_alli = Database("COST507.tdb")
 
 # Define phases
 my_phases_alli = [

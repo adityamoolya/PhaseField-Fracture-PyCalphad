@@ -1,7 +1,7 @@
 """
 02_scheil_solidification.py
 Scheil-Gulliver non-equilibrium solidification simulation for Al-7075 alloy
-ALL VALUES FROM REAL THERMODYNAMIC SIMULATIONS - NO FAKE DATA
+ALL VALUES FROM REAL THERMODYNAMIC SIMULATIONS 
 """
 
 import matplotlib.pyplot as plt
