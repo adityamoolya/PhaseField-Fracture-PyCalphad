@@ -9,6 +9,26 @@
 
 ---
 
+## Table of Contents
+
+| Section | Description |
+|---------|-------------|
+| [Team Details](#team-details) | Project team information |
+| [1. Introduction](#1-introduction) | Overview of Al-7xxx alloys and CALPHAD |
+| [2. Problem Definition](#2-problem-definition) | Challenges addressed |
+| [3. Objectives](#3-objectives) | Project goals |
+| [4. Methodology](#4-methodology) | CALPHAD approach and procedures |
+| [5. Project Execution](#5-project-execution) | Script descriptions |
+| [6. Tools and Techniques](#6-tools-and-techniques-used) | Software and methods used |
+| [7. Results and Discussion](#7-results-and-discussion) | Key findings and analysis |
+| [8. Prototype (Software)](#8-prototype-software) | Framework description |
+| [9. Conclusion](#9-conclusion) | Summary of findings |
+| [10. Visuals](#10-visuals) | Result graphs and images |
+| [11. Outcome](#11-outcome-of-the-work) | Deliverables and future work |
+| [12. References](#12-references) | Citations |
+
+---
+
 ## Team Details
 
 | Field | Details |
@@ -373,13 +393,9 @@ The proposed framework can be further developed into a practical alloy design an
 
 ## 12. References
 
-> **TODO:** Fill in your references here
-
-1. 
-2. 
-3. 
-4. 
-5. 
+1. https://www.sciencedirect.com/science/article/pii/S1359645421003463 
+2. https://www.opencalphad.com/databases.php (initally used for COST507.tdb file)
+3. https://gist.github.com/bocklund/c4714ddbc0500c78e6fe255a763e7550 (got the corrected COST507.tdb from here)
 
 ---
 
