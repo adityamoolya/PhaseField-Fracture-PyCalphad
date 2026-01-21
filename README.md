@@ -71,7 +71,7 @@ This project employs computational thermodynamics using the CALPHAD (CALculation
 
 The project follows a computational thermodynamics approach using the CALPHAD method. This involves:
 
-- Using assessed thermodynamic databases (COST507-modified.tdb and mc_al_v2037.tdb) containing Gibbs energy parameters for all relevant phases
+- Using assessed thermodynamic databases ([COST507-modified.tdb](final_work/database/COST507-modified.tdb) and [mc_al_v2037.tdb](final_work/scripts/mc_al_v2037.tdb)) containing Gibbs energy parameters for all relevant phases
 - Performing equilibrium calculations at specified temperatures and compositions
 - Applying the Scheil-Gulliver model for non-equilibrium solidification analysis
 - Using JMAK kinetics for precipitation transformation modeling (TTT curves)
@@ -84,7 +84,7 @@ The approach was structured in three phases:
 ### 4.2 Procedures
 
 **Step 1: Database Verification**
-- Load COST507-modified.tdb database
+- Load [COST507-modified.tdb](final_work/database/COST507-modified.tdb) database
 - Verify availability of required elements (Al, Zn, Mg, Cu, Cr, Zr)
 - Confirm presence of relevant phases (FCC_A1, LIQUID, LAVES_C14, LAVES_C15)
 
@@ -132,15 +132,15 @@ The project was executed through nine Python scripts, each addressing a specific
 
 | Script | Purpose | Output |
 |--------|---------|--------|
-| 01_verify_database.py | Database validation | Console output confirming 243 phases available |
-| 02_phase_stability_7xxx.py | Phase stability vs temperature | Phase fraction curves |
-| 03_multicomponent_optimization.py | Composition optimization | Contour maps showing optimal Zn-Mg-Cu combinations |
-| 04_scheil_solidification.py | Solidification behavior | Scheil curves with liquidus/solidus temperatures |
-| 05_ttt_aging_curves.py | Heat treatment optimization | TTT transformation curves |
-| 06_database_comparison.py | Cross-database validation | Comparison plots between COST507 and MatCalc |
-| 07_multi_alloy_comparison.py | Alloy comparison | Multi-panel comparison of 7050/7075/7085 |
-| 08_microalloying_effects.py | Dispersoid analysis | Cr and Zr effect curves |
-| 09_literature_validation.py | Experimental validation | Simulation vs literature comparison |
+| [01_verify_database.py](final_work/scripts/01_verify_database.py) | Database validation | Console output confirming 243 phases available |
+| [02_phase_stability_7xxx.py](final_work/scripts/02_phase_stability_7xxx.py) | Phase stability vs temperature | Phase fraction curves |
+| [03_multicomponent_optimization.py](final_work/scripts/03_multicomponent_optimization.py) | Composition optimization | [Contour maps](final_work/results/03_multicomponent_contour.png) showing optimal Zn-Mg-Cu combinations |
+| [04_scheil_solidification.py](final_work/scripts/04_scheil_solidification.py) | Solidification behavior | [Scheil curves](final_work/results/04_scheil_solidification.png) with liquidus/solidus temperatures |
+| [05_ttt_aging_curves.py](final_work/scripts/05_ttt_aging_curves.py) | Heat treatment optimization | [TTT transformation curves](final_work/results/05_ttt_curves.png) |
+| [06_database_comparison.py](final_work/scripts/06_database_comparison.py) | Cross-database validation | [Comparison plots](final_work/results/06_database_comparison.png) between COST507 and MatCalc |
+| [07_multi_alloy_comparison.py](final_work/scripts/07_multi_alloy_comparison.py) | Alloy comparison | [Multi-panel comparison](final_work/results/07_multi_alloy_comparison.png) of 7050/7075/7085 |
+| [08_microalloying_effects.py](final_work/scripts/08_microalloying_effects.py) | Dispersoid analysis | [Cr and Zr effect curves](final_work/results/08_microalloying_effects.png) |
+| [09_literature_validation.py](final_work/scripts/09_literature_validation.py) | Experimental validation | [Simulation vs literature comparison](final_work/results/09_literature_validation.png) |
 
 All scripts were executed using the pycalphad library within a conda environment with Python 3.12
 
@@ -156,8 +156,8 @@ All scripts were executed using the pycalphad library within a conda environment
 - SciPy: Scientific computing functions
 
 **Thermodynamic Databases:**
-- COST507-modified.tdb: Primary database for Al alloy calculations
-- mc_al_v2037.tdb: MatCalc database for cross-validation
+- [COST507-modified.tdb](final_work/database/COST507-modified.tdb): Primary database for Al alloy calculations
+- [mc_al_v2037.tdb](final_work/scripts/mc_al_v2037.tdb): MatCalc database for cross-validation
 
 **Computational Methods:**
 - Gibbs energy minimization for equilibrium calculations
@@ -174,7 +174,7 @@ All scripts were executed using the pycalphad library within a conda environment
 ### 7.1 Final Results
 
 **Database Validation:**
-- COST507-modified.tdb contains 243 phases
+- [COST507-modified.tdb](final_work/database/COST507-modified.tdb) contains 243 phases
 - All required elements (Al, Zn, Mg, Cu, Cr, Zr) available
 - Relevant phases for eta-phase precipitation identified
 
@@ -312,7 +312,7 @@ It accepts alloy composition inputs (Zn, Mg, Cu, Cr, Zr weight percentages) and 
 
 The framework was validated through:
 
-1. **Cross-database comparison:** Predictions from COST507-modified.tdb were compared with an independent MatCalc database (mc_al_v2037.tdb), showing less than 2% deviation in eta-phase predictions
+1. **Cross-database comparison:** Predictions from [COST507-modified.tdb](final_work/database/COST507-modified.tdb) were compared with an independent MatCalc database ([mc_al_v2037.tdb](final_work/scripts/mc_al_v2037.tdb)), showing less than 2% deviation in eta-phase predictions
 
 2. **Literature validation:** Calculated values for solidus, liquidus, eta-phase fraction, and hardness were compared with published experimental data from ASM Handbook, Marlaud (2010), and Deschamps (1999), confirming less than 5% error for all properties
 
