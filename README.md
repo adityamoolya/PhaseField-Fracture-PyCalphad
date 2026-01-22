@@ -1,6 +1,12 @@
 # Al-7xxx Alloy Thermodynamic Analysis Project
 
 > [!IMPORTANT]
+> PRESENTATION PPT , PORJECT REPORT AND IEEE REPORT ARE AVAILABLE HERE 
+> https://drive.google.com/drive/folders/1Mx3yqwY5J9uZNjaovTig9rSEC4tqeZbb?usp=sharing
+
+
+
+> [!IMPORTANT]
 > **This branch (`for_presentation`) was created specifically for presentation purposes.**
 > 
 > This branch contains only the final, polished work. For the complete development history, all commits, and the full codebase, please visit the **[main branch](../../tree/main)**.
